@@ -1,0 +1,16 @@
+name: slow
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+jobs:
+  slow:
+    name: slow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Simulate a slow build
+        run: sleep 240
+      - name: Tests
+        run: uv run python -m pytest tests/ -v
